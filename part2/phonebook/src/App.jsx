@@ -22,7 +22,7 @@ const App = () => {
       .then(registros => {
         setPersons(registros)
       })
-  })
+  }, [])
 
   const addPerson = (event) => {
     event.preventDefault()
@@ -34,13 +34,15 @@ const App = () => {
           .update(person.id, changePerson)
           .then(returnedPerson => {
             setPersons(persons.map(p => p.id !== person.id ? p : returnedPerson))
-            setSuccessMessage(`Replace number of ${ personObject.name }`)
+            setNewName('')
+            setNewNumber('')
+            setSuccessMessage(`Replace number of ${ returnedPerson.name }`)
             setTimeout(() => {
               setSuccessMessage(null)
             }, 5000)
           })
           .catch(error => {
-            setErrorMessage(`Information of ${ person.name } has already been removed from server`)
+            setErrorMessage(error.response.data.error)
             setTimeout(() => {
               setErrorMessage(null)
             }, 5000)
@@ -62,6 +64,13 @@ const App = () => {
             setSuccessMessage(null)
           }, 5000)
         }) 
+        .catch(error => {
+          console.log(error)
+          setErrorMessage(error.response.data.error)
+            setTimeout(() => {
+              setErrorMessage(null)
+            }, 5000)
+        })
     }
   }
 
@@ -97,6 +106,7 @@ const App = () => {
     PersonsServer
       .deletePerson(id)
       .then(res =>{
+        setPersons(persons.filter(x => x.id !== person.id))
         setSuccessMessage(`${ person.name } removed`)
         setTimeout(() => {
           setSuccessMessage(null)

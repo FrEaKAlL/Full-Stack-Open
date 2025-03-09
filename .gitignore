@@ -1,0 +1,7 @@
+exercises
+.env
+.dockerignore
+node_modules
+Dockerfile
+fly.toml
+dist
