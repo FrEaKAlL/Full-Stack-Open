@@ -31,8 +31,10 @@ app.use('/api/login', loginRouter)
 app.use('/api/blogs', blogsRouter)
 app.use('/api/users', usersRouter)
 
-if (config.NODE_ENV !== 'test'){
+if (config.NODE_ENV === 'test') {
+  app.use('/api/testing', require('./controllers/testing'))
+}
+if (config.NODE_ENV !== 'test') {
   app.use(middleware.errorHandler)
 }
-
 module.exports = app

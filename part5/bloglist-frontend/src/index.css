@@ -1,0 +1,21 @@
+.error {
+  color: red;
+}
+.success {
+  color: green;
+}
+.notification {
+  background: lightgrey;
+  font-size: 20px;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+button {
+  cursor: pointer;
+}
+.eliminar {
+  background-color: red;
+  border-radius: 5px;
+}
